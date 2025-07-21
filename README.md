@@ -14,7 +14,6 @@ Languages used: HTML, CSS, JavaScript, React
 
 - [Figma Design](https://www.figma.com/file/DTojSwldenF9UPKQZd6RRb/Sprint-10%3A-WTWR)
 
-
 ## Deployment
 
-This project is deployed on GitHub Pages:()
+This project is deployed on GitHub Pages:(https://j-magee0.github.io/se_project_react)
