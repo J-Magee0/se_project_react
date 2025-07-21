@@ -1,0 +1,122 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #0000004d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+}
+
+.modal__active {
+  visibility: visible;
+}
+
+.modal__title {
+  font-family: Cabinet Grotesk;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  color: #000;
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+.modal__close {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  background: transparent url("../../assets/close-btn_dark.svg") center
+    no-repeat;
+  width: 20px;
+  height: 20px;
+}
+
+.modal__content {
+  background-color: #fff;
+  position: relative;
+  padding: 28px 28px 36px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
+  max-width: 496px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.modal__label {
+  font-family: Cabinet Grotesk;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  color: #000;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__input {
+  display: block;
+  width: 100%;
+  padding: 8px auto 10px 0;
+  margin-bottom: 24px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 1);
+  font-family: Cabinet Grotesk;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.modal__radio-btns {
+  display: flex;
+  flex-direction: column;
+  border: none;
+  padding: 0;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.modal__legend {
+  font-family: Cabinet Grotesk;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 12px;
+}
+
+.modal__label_type_radio {
+  font-family: Cabinet Grotesk;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.modal__submit:disabled {
+  background-color: rgba(0, 0, 0, 0.3);
+  cursor: not-allowed;
+  width: 124px;
+  height: 36px;
+  top: 132px;
+  left: 20px;
+  border-radius: 4px;
+  padding: 8px 16px;
+  gap: 8px;
+  border: none;
+  font-family: Cabinet Grotesk;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.modal__submit:disabled:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
