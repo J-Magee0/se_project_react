@@ -10,7 +10,7 @@ const currentDate = new Date().toLocaleString("default", {
 function Header({ handleAddBtn, weatherData }) {
   return (
     <header className="header">
-      <img className="header__logo" src={logo} alt="WTWR Logo" />
+      <img className="header__logo" src={logo} alt={logo.name} />
       <p className="header__date-and-location">{currentDate}, {weatherData.city}</p>
       <button
         onClick={handleAddBtn}
@@ -21,7 +21,7 @@ function Header({ handleAddBtn, weatherData }) {
       </button>
       <div className="header__user-container">
         <p className="header__username">Terrence Tegegne</p>
-        <img src={avatar} alt="User Avatar" className="header__avatar" />
+        <img src={avatar} alt={avatar.name} className="header__avatar" />
       </div>
     </header>
   );
