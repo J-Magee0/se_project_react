@@ -21,7 +21,7 @@ function App() {
   };
 
   const handleAddBtn = () => {
-    setActiveModal("add-garment");
+    setActiveModal("add-garment"); 
   };
 
   const closeActiveModal = () => {

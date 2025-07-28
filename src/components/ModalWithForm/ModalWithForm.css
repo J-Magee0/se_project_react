@@ -120,3 +120,13 @@
 .modal__submit:disabled:hover {
   background-color: rgba(0, 0, 0, 0.6);
 }
+
+@media (max-width: 726px) {
+  .modal__content {
+    max-width: 100%;
+    padding: 16px;
+    position: fixed;
+    bottom: 0;
+    border-radius: 16px 16px 0 0;
+  }
+}

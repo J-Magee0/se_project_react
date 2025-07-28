@@ -12,14 +12,14 @@ export const weatherType = [
   {
     day: true,
     condition: "rain",
-    url: new URL("../assets/night/rain.png", import.meta.url).href,
+    url: new URL("../assets/day/rain.png", import.meta.url).href,
   },
   {
     day: true,
     condition: "storm",
-    url: new URL("../assets/storm.png", import.meta.url).href,
+    url: new URL("../assets/day/storm.png", import.meta.url).href,
   },
-   {
+  {
     day: true,
     condition: "snow",
     url: new URL("../assets/day/snow.png", import.meta.url).href,
@@ -39,15 +39,15 @@ export const weatherType = [
     condition: "clouds",
     url: new URL("../assets/night/cloudy_night.png", import.meta.url).href,
   },
-   {
+  {
     day: false,
     condition: "rain",
-    url: new URL("../assets/day/rain_night.png", import.meta.url).href,
+    url: new URL("../assets/night/rain_night.png", import.meta.url).href,
   },
   {
     day: false,
     condition: "storm",
-    url: new URL("../assets/day/storm_night.png", import.meta.url).href,
+    url: new URL("../assets/night/storm_night.png", import.meta.url).href,
   },
   {
     day: false,
