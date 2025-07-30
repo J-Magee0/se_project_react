@@ -11,7 +11,11 @@ import ItemModal from "../ItemModal/ItemModal";
 import Footer from "../Footer/Footer";
 
 function App() {
-  const [weatherData, setWeatherData] = useState(null);
+  const [weatherData, setWeatherData] = useState({
+    type: "",
+    temp: { F: 999, C: 999 },
+    city: "",
+  });
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
 
@@ -21,7 +25,7 @@ function App() {
   };
 
   const handleAddBtn = () => {
-    setActiveModal("add-garment"); 
+    setActiveModal("add-garment");
   };
 
   const closeActiveModal = () => {
@@ -56,6 +60,7 @@ function App() {
         title={"New garment"}
         activeModal={activeModal}
         closeActiveModal={closeActiveModal}
+        isOpen={activeModal === "add-garment"}
       >
         <label htmlFor="name" className="modal__label">
           Name{" "}
