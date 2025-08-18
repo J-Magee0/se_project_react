@@ -26,10 +26,11 @@
 .card__image {
   width: 100%;
   object-fit: cover;
+  margin: 0;
+  padding: 0;
 }
 
-
-@media (max-width:726px){
+@media (max-width: 726px) {
   .card {
     width: 164px;
     height: 164px;

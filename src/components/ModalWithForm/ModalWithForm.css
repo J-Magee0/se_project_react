@@ -100,6 +100,24 @@
   line-height: 20px;
 }
 
+.modal__submit {
+  background-color: rgba(0, 0, 0, 1);
+  cursor: not-allowed;
+  color:rgba(255, 255, 255, 1) ;
+  width: 124px;
+  height: 36px;
+  top: 132px;
+  left: 20px;
+  border-radius: 4px;
+  padding: 8px 16px;
+  gap: 8px;
+  border: none;
+  font-family: Cabinet Grotesk;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}
+
 .modal__submit:disabled {
   background-color: rgba(0, 0, 0, 0.3);
   cursor: not-allowed;

@@ -1,3 +1,7 @@
+.modal {
+  position: absolute;
+  display: flex;
+}
 
 .modal__content_type_image {
   width: 498px;
@@ -10,7 +14,7 @@
   position: absolute;
   top: 24px;
   right: 24px;
-  background: transparent url("../../assets/close-btn.svg") center no-repeat;
+  background: transparent url("../../assets/closeIconGrey.svg") center no-repeat;
   width: 20px;
   height: 20px;
 }
@@ -20,9 +24,17 @@
   height: 498px;
   object-fit: cover;
 }
-
 .modal__footer {
-  padding: 0 32px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+}
+
+.modal__footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .modal__caption {
@@ -30,7 +42,7 @@
   font-weight: 600;
   font-size: 20px;
   line-height: 24px;
-  margin: 20px 0 12px;
+  margin: 0;
 }
 
 .modal__weather {
@@ -39,4 +51,24 @@
   font-size: 20px;
   line-height: 24px;
   letter-spacing: 0%;
+}
+
+.modal__delete-btn {
+  padding: 8px 12px;
+  font-family: "Cabinet Grotesk";
+  font-weight: 500;
+  font-size: 16px;
+  color: #ff4d00;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  position: absolute;
+  right: 34px;
+  bottom: 60px;
+}
+
+.modal__delete-btn:hover {
+  background: #ffe6dc;
 }
