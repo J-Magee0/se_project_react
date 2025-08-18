@@ -1,2 +1,3 @@
 @import url(./vendor/normalize.css);
 @import url(./vendor/Fonts/font.css);
+@import url(./components/DeleteConfirmModal/DeleteConfirmModal.css);
