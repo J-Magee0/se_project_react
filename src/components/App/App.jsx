@@ -18,7 +18,7 @@ import { defaultClothingItems } from "../../utils/constants";
 import { getItems, addItem, deleteCard } from "../../utils/Api.js";
 
 import Profile from "../Profile/Profile";
-import DeleteConfirmModal from "../DeletConfirmModal/DeleteConfirmModal.jsx";
+import DeleteConfirmModal from "../DeleteConfirmModal/DeleteConfirmModal.jsx";
 
 // Main App component
 
@@ -53,7 +53,7 @@ function App() {
     setActiveModal("");
   };
 
-  const handleAddItemModalSubmit = ({ name, imageUrl, weatherType }) => {
+  const handleAddItemModalSubmit = ({ name, imageUrl, weatherType}) => {
     addItem({ name, imageUrl, weather: weatherType })
       .then((res) => {
         setClothingItems([res, ...clothingItems]);
