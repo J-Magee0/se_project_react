@@ -1,4 +1,4 @@
-import "./DeleteConfirmModal.css";
+import "./DeleteConfirmmodal.css";
 
 function DeleteConfirmModal({
   activeModal,
