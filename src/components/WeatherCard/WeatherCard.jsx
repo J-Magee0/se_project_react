@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import "./WeatherCard.css";
 import { weatherType, defaultWeatherType } from "../../utils/constants";
-import CurrentTempUnitContext from "../../contexts/CurrentTempUnit";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatueUnitContext";
 
 function WeatherCard({ weatherData }) {
-  const { currentTempUnit } = useContext(CurrentTempUnitContext);
+  const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
   if (
     !weatherData ||
@@ -32,7 +32,7 @@ function WeatherCard({ weatherData }) {
   return (
     <section className="weather-card">
       <p className="weather-card__temp">
-        {weatherData.temp[currentTempUnit]} &deg; {currentTempUnit}
+        {weatherData.temp[currentTemperatureUnit]} &deg; {currentTemperatureUnit}
       </p>
       <img
         src={currentWeatherImage?.url}

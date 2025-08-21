@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import "./ToggleSwitch.css";
-import CurrentTempUnitContext from "../../contexts/CurrentTempUnit";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatueUnitContext";
 
 // ToggleSwitch component to switch between Fahrenheit and Celsius
 
 function ToggleSwitch() {
-  const { handleToggleSwitchChange, currentTempUnit } = useContext(
-    CurrentTempUnitContext
+  const { handleToggleSwitchChange, currentTemperatureUnit } = useContext(
+    CurrentTemperatureUnitContext
   );
 
   return (
@@ -15,16 +15,17 @@ function ToggleSwitch() {
         onChange={handleToggleSwitchChange}
         className="toggle__switch-checkbox"
         type="checkbox"
+        checked={currentTemperatureUnit === "C"}
       />
       <span className="toggle__switch-circle"></span>
       <span
-        style={{ color: currentTempUnit === "F" ? "white" : "" }}
+        style={{ color: currentTemperatureUnit === "F" ? "white" : "" }}
         className="toggle__switch-temp toggle__switch-temp_F"
       >
         F
       </span>
       <span
-        style={{ color: currentTempUnit === "C" ? "white" : "" }}
+        style={{ color: currentTemperatureUnit === "C" ? "white" : "" }}
         className="toggle__switch-temp toggle__switch-temp_C"
       >
         C

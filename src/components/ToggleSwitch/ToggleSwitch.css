@@ -1,7 +1,7 @@
 .toggle__switch {
   display: flex;
   position: relative;
-  width: 56px;
+  min-width: 56px;
   height: 28px;
   border: 2px solid rgba(126, 126, 126, 1);
   border-radius: 20px;

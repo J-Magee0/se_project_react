@@ -5,7 +5,7 @@ function ItemModal({ activeModal, card, closeActiveModal, handleDeleteBtn }) {
 
   return (
     <div className={`modal ${activeModal === "preview" && "modal__active"}`}>
-      <div className="modal__content modal__content_type_image">
+      <div className="modal__content ">
         <button
           onClick={closeActiveModal}
           type="button"

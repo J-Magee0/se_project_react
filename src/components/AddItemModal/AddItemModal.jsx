@@ -12,9 +12,6 @@ export default function AddItemModal({
   const [imageUrl, setImageUrl] = useState("");
   const [weatherType, setWeatherType] = useState("");
 
-
-
-
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
@@ -33,7 +30,6 @@ export default function AddItemModal({
     setName("");
     setImageUrl("");
     setWeatherType("");
-    console.log("Submitted:", { name, imageUrl, weatherType });
   };
 
   return (
@@ -45,7 +41,6 @@ export default function AddItemModal({
       closeActiveModal={closeActiveModal}
       isOpen={isOpen}
       onSubmit={handleSubmit}
-    
     >
       <label htmlFor="name" className="modal__label">
         Name{" "}

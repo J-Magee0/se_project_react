@@ -6,12 +6,11 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
 import Footer from "../Footer/Footer";
 
-import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
-import CurrentTempUnitContext from "../../contexts/CurrentTempUnit";
+
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatueUnitContext.jsx";
 import AddItemModal from "../AddItemModal/AddItemModal";
 
 import { defaultClothingItems } from "../../utils/constants";
@@ -32,12 +31,11 @@ function App() {
   });
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
-  const [currentTempUnit, setCurrentTempUnit] = useState("F");
+  const [currentTemperatureUnit, setCurrentTempertureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
-  // const [cardToDelete, setCardToDelete] = useState(null);
 
   const handleToggleSwitchChange = () => {
-    setCurrentTempUnit(currentTempUnit === "F" ? "C" : "F");
+    setCurrentTempertureUnit(currentTemperatureUnit === "F" ? "C" : "F");
   };
 
   const handleCardClick = (card) => {
@@ -63,13 +61,11 @@ function App() {
   };
 
   const handleDeleteBtn = (card) => {
-    console.log("handleDeleteBtn called with card:", card);
     setSelectedCard(card);
     setActiveModal("delete-garment");
   };
 
   const handleDelete = (cardToDelete) => {
-    console.log("handleDelete called with card:", cardToDelete);
     if (!cardToDelete || !cardToDelete.id) {
       console.error("No valid card selected for deletion");
       return;
@@ -98,19 +94,14 @@ function App() {
   useEffect(() => {
     getItems()
       .then((data) => {
-        console.log(data);
         setClothingItems(data);
       })
       .catch(console.error);
   }, []);
 
-  useEffect(() => {
-    console.log("selectedCard changed:", selectedCard);
-  }, [selectedCard]);
-
   return (
-    <CurrentTempUnitContext.Provider
-      value={{ currentTempUnit, handleToggleSwitchChange }}
+    <CurrentTemperatureUnitContext.Provider
+      value={{ currentTemperatureUnit, handleToggleSwitchChange }}
     >
       <div className="page">
         <div className="page__wrapper">
@@ -161,7 +152,7 @@ function App() {
         />
         <Footer />
       </div>
-    </CurrentTempUnitContext.Provider>
+    </CurrentTemperatureUnitContext.Provider>
   );
 }
 

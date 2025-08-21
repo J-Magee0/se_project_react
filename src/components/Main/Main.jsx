@@ -2,12 +2,12 @@ import { useContext } from "react";
 import "./Main.css";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
-import CurrentTempUnitContext from "../../contexts/CurrentTempUnit";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatueUnitContext";
 
 // Main component to display weather and clothing items
 
 function Main({ weatherData, handleCardClick, clothingItems }) {
-  const { currentTempUnit } = useContext(CurrentTempUnitContext);
+  const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   if (!weatherData || !weatherData.temp || !weatherData.type) {
     return <p>Loading...</p>; // or a loading indicator
   }
@@ -17,7 +17,7 @@ function Main({ weatherData, handleCardClick, clothingItems }) {
       <WeatherCard weatherData={weatherData} />
       <section className="cards">
         <p className="cards__text">
-          Today is {weatherData.temp[currentTempUnit]} &deg; {currentTempUnit} /
+          Today is {weatherData.temp[currentTemperatureUnit]} &deg; {currentTemperatureUnit} /
           You may want to wear:
         </p>
         <ul className="cards__list">
@@ -30,7 +30,6 @@ function Main({ weatherData, handleCardClick, clothingItems }) {
                 <ItemCard
                   key={item.id}
                   item={item}
-    
                   onCardClick={handleCardClick}
                 />
               );
