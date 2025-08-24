@@ -13,21 +13,21 @@ export const request = (url, options) => {
 };
 
 function getItems() {
-  return fetch(`${baseUrl}/items`).then(checkResponse);
+  return request(`${baseUrl}/items`);
 }
 
-function deleteCard(id) {
-  return fetch(`${baseUrl}/items/${id}`, {
+function deleteCard(_id) {
+  return request(`${baseUrl}/items/${_id}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
-  }).then(checkResponse);
+  });
 }
 
 function addItem({ name, imageUrl, weather }) {
-  return fetch(`${baseUrl}/items`, {
+  return request(`${baseUrl}/items`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, imageUrl, weather }),
-  }).then(checkResponse);
+  });
 }
 export { getItems, addItem, deleteCard };

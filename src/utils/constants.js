@@ -1,4 +1,4 @@
-export const weatherType = [
+export const weather = [
   {
     day: true,
     condition: "clear",
@@ -61,7 +61,7 @@ export const weatherType = [
   },
 ];
 
-export const defaultWeatherType = {
+export const defaultWeather = {
   day: {
     url: new URL("../assets/day/default_day.png", import.meta.url).href,
   },

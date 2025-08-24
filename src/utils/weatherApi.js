@@ -3,13 +3,7 @@ import { checkResponse } from "./Api";
 export const getWeatherData = ({ latitude, longitude }, APIkey) => {
   return fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}`
-  ).then((checkResponse) => {
-    if (checkResponse.ok) {
-      return checkResponse.json();
-    } else {
-      return Promise.reject(`Error: ${checkResponse.status}`);
-    }
-  });
+  ).then(checkResponse);
 };
 
 export const filterWeatherData = (data) => {
@@ -19,7 +13,7 @@ export const filterWeatherData = (data) => {
     F: Math.round(data.main.temp),
     C: Math.round(((data.main.temp - 32) * 5) / 9),
   };
-  res.type = getWeathertype(data.main.temp);
+  res.type = getWeather(data.main.temp);
   res.condition = data.weather[0].main.toLowerCase();
   res.isDay = isDay(data.sys, Date.now());
 
@@ -30,7 +24,7 @@ const isDay = ({ sunrise, sunset }, now) => {
   return now >= sunrise * 1000 && now < sunset * 1000;
 };
 
-const getWeathertype = (temp) => {
+const getWeather = (temp) => {
   if (temp >= 86) {
     return "hot";
   } else if (temp >= 66 && temp < 86) {

@@ -9,8 +9,7 @@ import Main from "../Main/Main";
 import ItemModal from "../ItemModal/ItemModal";
 import Footer from "../Footer/Footer";
 
-
-import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatueUnitContext.jsx";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.jsx";
 import AddItemModal from "../AddItemModal/AddItemModal";
 
 import { defaultClothingItems } from "../../utils/constants";
@@ -32,7 +31,7 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTempertureUnit] = useState("F");
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [clothingItems, setClothingItems] = useState([]);
 
   const handleToggleSwitchChange = () => {
     setCurrentTempertureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -51,8 +50,8 @@ function App() {
     setActiveModal("");
   };
 
-  const handleAddItemModalSubmit = ({ name, imageUrl, weatherType }) => {
-    addItem({ name, imageUrl, weather: weatherType })
+  const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
+    addItem({ name, imageUrl, weather })
       .then((res) => {
         setClothingItems([res, ...clothingItems]);
         closeActiveModal();
@@ -66,18 +65,20 @@ function App() {
   };
 
   const handleDelete = (cardToDelete) => {
-    if (!cardToDelete || !cardToDelete.id) {
+    if (!cardToDelete || !cardToDelete._id) {
       console.error("No valid card selected for deletion");
       return;
     }
-    deleteCard(cardToDelete.id)
+    deleteCard(cardToDelete._id)
       .then(() => {
         setClothingItems((cards) =>
-          cards.filter((item) => item.id !== cardToDelete.id)
+          cards.filter((item) => item._id !== cardToDelete._id)
         );
         closeActiveModal();
       })
-      .catch(console.error);
+      .catch((error) => {
+        console.error("Failed to delete item:", error);
+      });
   };
 
   useEffect(() => {
@@ -98,6 +99,25 @@ function App() {
       })
       .catch(console.error);
   }, []);
+
+  // Effect for closing modals on "Escape" key press
+  useEffect(() => {
+    if (!activeModal) return; // stop the effect not to add the listener if there is no active modal
+
+    const handleEscClose = (e) => {
+      // define the function inside useEffect not to lose the reference on rerendering
+      if (e.key === "Escape") {
+        handleCloseModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      // don't forget to add a clean up function for removing the listener
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]); // watch activeModal here
 
   return (
     <CurrentTemperatureUnitContext.Provider
@@ -125,6 +145,7 @@ function App() {
                   handleCardClick={handleCardClick}
                   handleAddBtn={handleAddBtn}
                   handleDeleteBtn={handleDeleteBtn}
+                  clothingItems={clothingItems}
                 />
               }
             />

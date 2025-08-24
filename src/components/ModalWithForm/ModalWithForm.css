@@ -102,8 +102,8 @@
 
 .modal__submit {
   background-color: rgba(0, 0, 0, 1);
-  cursor: not-allowed;
-  color:rgba(255, 255, 255, 1) ;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 1);
   width: 124px;
   height: 36px;
   top: 132px;

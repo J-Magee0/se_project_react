@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import "./WeatherCard.css";
-import { weatherType, defaultWeatherType } from "../../utils/constants";
-import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatueUnitContext";
+import { weather, defaultWeather } from "../../utils/constants";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 
 function WeatherCard({ weatherData }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
@@ -14,7 +14,7 @@ function WeatherCard({ weatherData }) {
     return <p>loading...</p>; // or a loading indicator
   }
 
-  const currentWeather = weatherType.filter((type) => {
+  const currentWeather = weather.filter((type) => {
     return (
       type.condition === weatherData.condition && type.day === weatherData.isDay
     );
@@ -23,8 +23,7 @@ function WeatherCard({ weatherData }) {
   let currentWeatherImage;
 
   if (currentWeather.length === 0) {
-    currentWeatherImage =
-      defaultWeatherType[weatherData.isDay ? "day" : "night"];
+    currentWeatherImage = defaultWeather[weatherData.isDay ? "day" : "night"];
   } else {
     currentWeatherImage = currentWeather[0];
   }
@@ -32,7 +31,8 @@ function WeatherCard({ weatherData }) {
   return (
     <section className="weather-card">
       <p className="weather-card__temp">
-        {weatherData.temp[currentTemperatureUnit]} &deg; {currentTemperatureUnit}
+        {weatherData.temp[currentTemperatureUnit]} &deg;{" "}
+        {currentTemperatureUnit}
       </p>
       <img
         src={currentWeatherImage?.url}
