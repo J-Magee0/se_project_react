@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AddItemModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
@@ -24,12 +24,18 @@ export default function AddItemModal({
     setImageUrl(e.target.value);
   };
 
+  useEffect(() => {
+    if (isOpen) {
+      setName("");
+      setImageUrl("");
+      setWeather("");
+    }
+  }, [isOpen]);   
+
   const handleSubmit = (e) => {
     e.preventDefault(); // Handle form submission logic here
     onAddItemModalSubmit({ name, imageUrl, weather }); // Call the parent function to handle the submission
-    setName("");
-    setImageUrl("");
-    setWeather("");
+    closeActiveModal(); // Close the modal after submission
   };
 
   return (
