@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../../assets/wtwr_logo.svg";
@@ -7,18 +7,35 @@ import HamburgerIcon from "../../assets/hamburger-icon.svg";
 import CloseIcon from "../../assets/close-icon.svg";
 
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import CurrentUserContext from "../../contexts/CurrentUserContext.jsx";
 
 const currentDate = new Date().toLocaleString("default", {
   month: "long",
   day: "numeric",
 });
 
-function Header({ handleAddBtn, weatherData }) {
+function Header({ handleAddBtn, weatherData, isLoggedIn, setActiveModal }) {
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
+  const currentUser = useContext(CurrentUserContext);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpened(!isMobileMenuOpened);
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem("jwt");
+    // Reset user state as needed
+    window.location.reload();
+  };
+
+  // Create placeholder avatar with first letter of name
+  const getPlaceholderAvatar = (name) => {
+    if (!name) return "?";
+    return name.charAt(0).toUpperCase();
+  };
+
+  const userInitial = currentUser?.name ? getPlaceholderAvatar(currentUser.name) : "?";
+  const userName = currentUser?.name || currentUser?.email || "User";
 
   return (
     <header className="header">
@@ -35,30 +52,61 @@ function Header({ handleAddBtn, weatherData }) {
         }`}
       >
         <ToggleSwitch />
-        <button
-          onClick={() => {
-            handleAddBtn(), toggleMobileMenu();
-          }}
-          type="button"
-          className="header__add-clothes-btn"
-        >
-          + Add Clothes
-        </button>
-        <Link to="/profile" className="header__link">
-          <div className="header__user-container">
-            <p className="header__username">Terrence Tegegne</p>
-            <img src={avatar} alt={avatar.name} className="header__avatar" />
-          </div>
-          {isMobileMenuOpened && (
+        {isLoggedIn ? (
+          <>
             <button
-              className="header__mobile-close-btn"
-              onClick={toggleMobileMenu}
-              aria-label="Close menu"
-              imgsrc={CloseIcon}
-            ></button>
-          )}
-        </Link>
-      </div>
+              onClick={() => {
+                handleAddBtn(), toggleMobileMenu();
+              }}
+              type="button"
+              className="header__add-clothes-btn"
+            >
+              + Add Clothes
+            </button>
+            <Link to="/profile" className="header__link">
+              <div className="header__user-container">
+                <p className="header__username">{userName}</p>
+                {currentUser?.avatar ? (
+                  <img src={currentUser.avatar} alt={userName} className="header__avatar" />
+                ) : (
+                  <div className="header__avatar header__avatar_placeholder">
+                    {userInitial}
+                  </div>
+                )}
+              </div>
+            </Link>
+            <button
+              onClick={handleLogout}
+              type="button"
+              className="header__logout-btn"
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <button
+              onClick={() => {
+                setActiveModal("register");
+                toggleMobileMenu();
+              }}
+              type="button"
+              className="header__signup-btn"
+            >
+              Sign Up
+            </button>
+            <button
+              onClick={() => {
+                setActiveModal("login");
+                toggleMobileMenu();
+              }}
+              type="button"
+              className="header__login-btn"
+            >
+              Log In
+            </button>
+          </>
+        )}
 
       {!isMobileMenuOpened && (
         <button
