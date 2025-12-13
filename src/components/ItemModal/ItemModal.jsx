@@ -7,7 +7,8 @@ function ItemModal({ activeModal, card, closeActiveModal, handleDeleteBtn }) {
   const currentUser = useContext(CurrentUserContext);
 
   // Check if the current user is the owner of the item
-  const isOwn = currentUser && currentUser._id && cardToUse.owner === currentUser._id;
+  const isOwn =
+    currentUser && currentUser._id && cardToUse.owner === currentUser._id;
 
   return (
     <div className={`modal ${activeModal === "preview" && "modal__active"}`}>
@@ -17,11 +18,15 @@ function ItemModal({ activeModal, card, closeActiveModal, handleDeleteBtn }) {
           type="button"
           className="modal__close"
         ></button>
-        <img src={card.imageUrl || card.link} alt={card.name} className="modal__image" />
+        <img
+          src={card.imageUrl || card.link}
+          alt={card.name}
+          className="modal__image"
+        />
         <div className="modal__footer">
           <div className="modal__footer-left">
-          <h2 className="modal__caption">{card.name}</h2>
-          <p className="modal__weather">Weather type: {card.weather}</p>
+            <h2 className="modal__caption">{card.name}</h2>
+            <p className="modal__weather">Weather type: {card.weather}</p>
           </div>
           {isOwn && (
             <button

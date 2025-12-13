@@ -3,7 +3,6 @@ import "./ClothesSection.css";
 import ItemCard from "../ItemCard/ItemCard";
 import CurrentUserContext from "../../contexts/CurrentUserContext.jsx";
 
-
 function ClothesSection({ handleCardClick, handleAddBtn, clothingItems }) {
   const currentUser = useContext(CurrentUserContext);
 
