@@ -38,4 +38,46 @@ function addItem({ name, imageUrl, weather }) {
     body: JSON.stringify({ name, imageUrl, weather }),
   });
 }
-export { getItems, addItem, deleteCard };
+
+function addCardLike(id) {
+  const token = localStorage.getItem("jwt");
+  return request(`${baseUrl}/items/${id}/likes`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+function removeCardLike(id) {
+  const token = localStorage.getItem("jwt");
+  return request(`${baseUrl}/items/${id}/likes`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+function updateUser({ name, avatar }) {
+  const token = localStorage.getItem("jwt");
+  return request(`${baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ name, avatar }),
+  });
+}
+
+export {
+  getItems,
+  addItem,
+  deleteCard,
+  addCardLike,
+  removeCardLike,
+  updateUser,
+};

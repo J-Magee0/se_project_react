@@ -7,6 +7,7 @@ export default function LoginModal({
   isOpen,
   activeModal,
   onLoginModalSubmit,
+  setActiveModal,
 }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,11 +33,20 @@ export default function LoginModal({
     closeActiveModal();
   };
 
+  const handleSignUpClick = (e) => {
+    e.preventDefault();
+    // Close login modal then open register modal
+    closeActiveModal();
+    if (typeof setActiveModal === "function") {
+      setActiveModal("register");
+    }
+  };
+
   return (
     <ModalWithForm
       name={"login"}
-      buttonText={"Sign In"}
-      title={"Sign In"}
+      buttonText={"Log In"}
+      title={"Log In"}
       activeModal={activeModal}
       closeActiveModal={closeActiveModal}
       isOpen={isOpen}
@@ -70,6 +80,13 @@ export default function LoginModal({
           maxLength={100}
         />
       </label>
+      <button
+        type="button"
+        className="modal__signup-btn"
+        onClick={handleSignUpClick}
+      >
+        Or Sign Up
+      </button>
     </ModalWithForm>
   );
 }

@@ -7,11 +7,13 @@ function Profile({
   handleAddBtn,
   handleDeleteBtn,
   clothingItems,
+  onEditProfile,
+  onSignOut,
 }) {
   return (
     <div className="profile">
       <section className="profile__sidebar">
-        <Sidebar />
+        <Sidebar onEditProfile={onEditProfile} onSignOut={onSignOut} />
       </section>
       <section className="profile__clothes">
         <ClothesSection

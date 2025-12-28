@@ -16,12 +16,20 @@ import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
 
 import { defaultClothingItems } from "../../utils/constants";
-import { getItems, addItem, deleteCard } from "../../utils/Api.js";
+import {
+  getItems,
+  addItem,
+  deleteCard,
+  addCardLike,
+  removeCardLike,
+  updateUser,
+} from "../../utils/Api.js";
 import { signup, signin, checkToken } from "../../utils/auth.js";
 
 import Profile from "../Profile/Profile";
 import DeleteConfirmModal from "../DeleteConfirmModal/DeleteConfirmModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
 
 // Main App component
 
@@ -120,6 +128,42 @@ function App() {
       });
   };
 
+  const handleCardLike = ({ id, isLiked }) => {
+    !isLiked
+      ? addCardLike(id)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err))
+      : removeCardLike(id)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err));
+  };
+
+  const handleEditProfile = ({ name, avatar }) => {
+    updateUser({ name, avatar })
+      .then((res) => {
+        setCurrentUser(res.data || res);
+        closeActiveModal();
+      })
+      .catch((error) => {
+        console.error("Profile update failed:", error);
+      });
+  };
+
+  const handleSignOut = () => {
+    localStorage.removeItem("jwt");
+    setIsLoggedIn(false);
+    setCurrentUser(null);
+    window.location.reload();
+  };
+
   useEffect(() => {
     getWeatherData(coordinates, APIkey)
       .then((data) => {
@@ -197,6 +241,7 @@ function App() {
                     handleCardClick={handleCardClick}
                     clothingItems={clothingItems}
                     handleDeleteBtn={handleDeleteBtn}
+                    onCardLike={handleCardLike}
                   />
                 }
               />
@@ -209,6 +254,8 @@ function App() {
                       handleAddBtn={handleAddBtn}
                       handleDeleteBtn={handleDeleteBtn}
                       clothingItems={clothingItems}
+                      onEditProfile={() => setActiveModal("edit-profile")}
+                      onSignOut={handleSignOut}
                     />
                   </ProtectedRoute>
                 }
@@ -246,6 +293,13 @@ function App() {
             closeActiveModal={closeActiveModal}
             isOpen={activeModal === "login"}
             onLoginModalSubmit={handleLoginModalSubmit}
+            setActiveModal={setActiveModal}
+          />
+          <EditProfileModal
+            activeModal={activeModal}
+            closeActiveModal={closeActiveModal}
+            isOpen={activeModal === "edit-profile"}
+            onEditProfileSubmit={handleEditProfile}
           />
           <Footer />
         </div>

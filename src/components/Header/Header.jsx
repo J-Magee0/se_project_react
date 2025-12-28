@@ -34,7 +34,9 @@ function Header({ handleAddBtn, weatherData, isLoggedIn, setActiveModal }) {
     return name.charAt(0).toUpperCase();
   };
 
-  const userInitial = currentUser?.name ? getPlaceholderAvatar(currentUser.name) : "?";
+  const userInitial = currentUser?.name
+    ? getPlaceholderAvatar(currentUser.name)
+    : "?";
   const userName = currentUser?.name || currentUser?.email || "User";
 
   return (
@@ -50,63 +52,67 @@ function Header({ handleAddBtn, weatherData, isLoggedIn, setActiveModal }) {
         className={`header__nav ${
           isMobileMenuOpened ? "header__nav--active" : ""
         }`}
-      >
-        <ToggleSwitch />
-        {isLoggedIn ? (
-          <>
-            <button
-              onClick={() => {
-                handleAddBtn(), toggleMobileMenu();
-              }}
-              type="button"
-              className="header__add-clothes-btn"
-            >
-              + Add Clothes
-            </button>
-            <Link to="/profile" className="header__link">
-              <div className="header__user-container">
-                <p className="header__username">{userName}</p>
-                {currentUser?.avatar ? (
-                  <img src={currentUser.avatar} alt={userName} className="header__avatar" />
-                ) : (
-                  <div className="header__avatar header__avatar_placeholder">
-                    {userInitial}
-                  </div>
-                )}
-              </div>
-            </Link>
-            <button
-              onClick={handleLogout}
-              type="button"
-              className="header__logout-btn"
-            >
-              Logout
-            </button>
-          </>
-        ) : (
-          <>
-            <button
-              onClick={() => {
-                setActiveModal("register");
-                toggleMobileMenu();
-              }}
-              type="button"
-              className="header__signup-btn"
-            >
-              Sign Up
-            </button>
-            <button
-              onClick={() => {
-                setActiveModal("login");
-                toggleMobileMenu();
-              }}
-              type="button"
-              className="header__login-btn"
-            >
-              Log In
-            </button>
-          </>
-        )}
+      />
+      <ToggleSwitch />
+      {isLoggedIn ? (
+        <>
+          <button
+            onClick={() => {
+              handleAddBtn(), toggleMobileMenu();
+            }}
+            type="button"
+            className="header__add-clothes-btn"
+          >
+            + Add Clothes
+          </button>
+          <Link to="/profile" className="header__link">
+            <div className="header__user-container">
+              <p className="header__username">{userName}</p>
+              {currentUser?.avatar ? (
+                <img
+                  src={currentUser.avatar}
+                  alt={userName}
+                  className="header__avatar"
+                />
+              ) : (
+                <div className="header__avatar header__avatar_placeholder">
+                  {userInitial}
+                </div>
+              )}
+            </div>
+          </Link>
+          <button
+            onClick={handleLogout}
+            type="button"
+            className="header__logout-btn"
+          >
+            Logout
+          </button>
+        </>
+      ) : (
+        <>
+          <button
+            onClick={() => {
+              setActiveModal("register");
+              toggleMobileMenu();
+            }}
+            type="button"
+            className="header__signup-btn"
+          >
+            Sign Up
+          </button>
+          <button
+            onClick={() => {
+              setActiveModal("login");
+              toggleMobileMenu();
+            }}
+            type="button"
+            className="header__login-btn"
+          >
+            Log In
+          </button>
+        </>
+      )}
 
       {!isMobileMenuOpened && (
         <button

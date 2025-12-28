@@ -6,7 +6,7 @@ import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit
 
 // Main component to display weather and clothing items
 
-function Main({ weatherData, handleCardClick, clothingItems }) {
+function Main({ weatherData, handleCardClick, clothingItems, onCardLike }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   if (!weatherData || !weatherData.temp || !weatherData.type) {
     return <p>Loading...</p>; // or a loading indicator
@@ -31,6 +31,7 @@ function Main({ weatherData, handleCardClick, clothingItems }) {
                   key={item._id}
                   item={item}
                   onCardClick={handleCardClick}
+                  onCardLike={onCardLike}
                 />
               );
             })}
