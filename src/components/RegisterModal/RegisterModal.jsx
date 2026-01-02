@@ -7,10 +7,12 @@ export default function RegisterModal({
   isOpen,
   activeModal,
   onRegisterModalSubmit,
+  setActiveModal,
 }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -24,17 +26,31 @@ export default function RegisterModal({
     setName(e.target.value);
   };
 
+  const handleAvatarUrlChange = (e) => {
+    setAvatarUrl(e.target.value);
+  };
+
   useEffect(() => {
     if (isOpen) {
       setEmail("");
       setPassword("");
       setName("");
+      setAvatarUrl("");
     }
   }, [isOpen]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onRegisterModalSubmit({ email, password, name });
+    onRegisterModalSubmit({ email, password, name, avatarUrl });
+  };
+
+  const handleLoginClick = (e) => {
+    e.preventDefault();
+    // Close register modal then open login modal
+    closeActiveModal();
+    if (typeof setActiveModal === "function") {
+      setActiveModal("login");
+    }
   };
 
   return (
@@ -48,7 +64,7 @@ export default function RegisterModal({
       onSubmit={handleSubmit}
     >
       <label htmlFor="register-email" className="modal__label">
-        Email{" "}
+        Email *{" "}
         <input
           type="email"
           className="modal__input"
@@ -62,7 +78,7 @@ export default function RegisterModal({
         />
       </label>
       <label htmlFor="register-password" className="modal__label">
-        Password{" "}
+        Password *{" "}
         <input
           type="password"
           className="modal__input"
@@ -76,7 +92,7 @@ export default function RegisterModal({
         />
       </label>
       <label htmlFor="register-name" className="modal__label">
-        Name{" "}
+        Name *{" "}
         <input
           type="text"
           className="modal__input"
@@ -89,6 +105,27 @@ export default function RegisterModal({
           maxLength={50}
         />
       </label>
+      <label htmlFor="register-avatar-url" className="modal__label">
+        Avatar URL *{" "}
+        <input
+          type="url"
+          className="modal__input"
+          id="register-avatar-url"
+          placeholder="Avatar URL"
+          required
+          value={avatarUrl}
+          onChange={handleAvatarUrlChange}
+          minLength={1}
+          maxLength={200}
+        />
+      </label>
+      <button
+        type="button"
+        className="modal__login-btn"
+        onClick={handleLoginClick}
+      >
+        Or Log In
+      </button>
     </ModalWithForm>
   );
 }

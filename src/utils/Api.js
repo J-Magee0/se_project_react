@@ -73,6 +73,22 @@ function updateUser({ name, avatar }) {
   });
 }
 
+function signup({ email, password, name, avatar }) {
+  return request(`${baseUrl}/signup`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password, name, avatar }),
+  });
+}
+
+function signin ({ email, password }) {
+  return request(`${baseUrl}/signin`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  });
+} 
+
 export {
   getItems,
   addItem,

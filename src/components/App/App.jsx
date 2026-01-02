@@ -30,6 +30,7 @@ import Profile from "../Profile/Profile";
 import DeleteConfirmModal from "../DeleteConfirmModal/DeleteConfirmModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import EditProfileModal from "../EditProfileModal/EditProfileModal";
+import Message from "../Message/Message";
 
 // Main App component
 
@@ -47,6 +48,7 @@ function App() {
   const [clothingItems, setClothingItems] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [uiMessage, setUiMessage] = useState(null);
 
   const handleToggleSwitchChange = () => {
     setCurrentTempertureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -65,20 +67,37 @@ function App() {
     setActiveModal("");
   };
 
-  const handleRegisterModalSubmit = ({ email, password, name }) => {
-    signup({ email, password, name })
+  const handleRegisterModalSubmit = ({ email, password, name, avatarUrl }) => {
+    signup({ email, password, name, avatar: avatarUrl })
+      .then(() => {
+        // signup succeeded, now sign in to get token
+        return signin({ email, password });
+      })
       .then((res) => {
-        if (res.token) {
+        if (res && res.token) {
           localStorage.setItem("jwt", res.token);
           setIsLoggedIn(true);
-          setCurrentUser({ email, name });
+          setCurrentUser({ email, name, avatar: avatarUrl });
           closeActiveModal();
-          // Auto sign in after successful registration
-          return signin({ email, password });
         }
       })
       .catch((error) => {
         console.error("Registration failed:", error);
+        // If server responded with 409 (Conflict), offer to login instead
+        if (error && error.status === 409) {
+          // optionally show server message
+          const msg =
+            error.body?.message || "User already exists. Please log in.";
+          // open login modal
+          setActiveModal("login");
+          // show a short UI message
+          setUiMessage({ text: msg, type: "info" });
+          return;
+        }
+        // other errors: show message if available
+        const otherMsg =
+          error?.body?.message || error?.message || "Registration failed";
+        setUiMessage({ text: otherMsg, type: "error" });
       });
   };
 
@@ -94,6 +113,8 @@ function App() {
       })
       .catch((error) => {
         console.error("Login failed:", error);
+        const msg = error?.body?.message || error?.message || "Login failed";
+        setUiMessage({ text: msg, type: "error" });
       });
   };
 
@@ -103,7 +124,12 @@ function App() {
         setClothingItems([res, ...clothingItems]);
         closeActiveModal();
       })
-      .catch(console.error);
+      .catch((error) => {
+        console.error("Add item failed:", error);
+        const msg =
+          error?.body?.message || error?.message || "Failed to add item";
+        setUiMessage({ text: msg, type: "error" });
+      });
   };
 
   const handleDeleteBtn = (card) => {
@@ -125,6 +151,9 @@ function App() {
       })
       .catch((error) => {
         console.error("Failed to delete item:", error);
+        const msg =
+          error?.body?.message || error?.message || "Failed to delete item";
+        setUiMessage({ text: msg, type: "error" });
       });
   };
 
@@ -136,14 +165,24 @@ function App() {
               cards.map((item) => (item._id === id ? updatedCard : item))
             );
           })
-          .catch((err) => console.log(err))
+          .catch((err) => {
+            console.error("Like failed:", err);
+            const msg =
+              err?.body?.message || err?.message || "Failed to like item";
+            setUiMessage({ text: msg, type: "error" });
+          })
       : removeCardLike(id)
           .then((updatedCard) => {
             setClothingItems((cards) =>
               cards.map((item) => (item._id === id ? updatedCard : item))
             );
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            console.error("Remove like failed:", err);
+            const msg =
+              err?.body?.message || err?.message || "Failed to remove like";
+            setUiMessage({ text: msg, type: "error" });
+          });
   };
 
   const handleEditProfile = ({ name, avatar }) => {
@@ -154,6 +193,9 @@ function App() {
       })
       .catch((error) => {
         console.error("Profile update failed:", error);
+        const msg =
+          error?.body?.message || error?.message || "Failed to update profile";
+        setUiMessage({ text: msg, type: "error" });
       });
   };
 
@@ -188,6 +230,9 @@ function App() {
           localStorage.removeItem("jwt");
           setIsLoggedIn(false);
           setCurrentUser(null);
+          const msg =
+            error?.body?.message || error?.message || "Session expired";
+          setUiMessage({ text: msg, type: "info" });
         });
     }
   }, []);
@@ -226,6 +271,11 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <div className="page">
           <div className="page__wrapper">
+            <Message
+              message={uiMessage?.text}
+              type={uiMessage?.type || "info"}
+              onClose={() => setUiMessage(null)}
+            />
             <Header
               handleAddBtn={handleAddBtn}
               weatherData={weatherData}
@@ -287,6 +337,7 @@ function App() {
             closeActiveModal={closeActiveModal}
             isOpen={activeModal === "register"}
             onRegisterModalSubmit={handleRegisterModalSubmit}
+            setActiveModal={setActiveModal}
           />
           <LoginModal
             activeModal={activeModal}

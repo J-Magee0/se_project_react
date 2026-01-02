@@ -1,1 +1,17 @@
-/* RegisterModal styles */
+.modal__login-btn {
+  display: flex;
+  position: absolute;
+  left: 162px;
+  bottom: 44px;
+  justify-content: center;
+  align-items: center;
+  font-family: Cabinet Grotesk;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  background-color: transparent;
+  border: none;
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  margin-top: 10px;
+}
