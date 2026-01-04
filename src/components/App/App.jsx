@@ -76,10 +76,14 @@ function App() {
       .then((res) => {
         if (res && res.token) {
           localStorage.setItem("jwt", res.token);
-          setIsLoggedIn(true);
-          setCurrentUser({ email, name, avatar: avatarUrl });
-          closeActiveModal();
+          // fetch full user data with _id
+          return checkToken(res.token);
         }
+      })
+      .then((userData) => {
+        setIsLoggedIn(true);
+        setCurrentUser(userData);
+        closeActiveModal();
       })
       .catch((error) => {
         console.error("Registration failed:", error);
@@ -106,10 +110,14 @@ function App() {
       .then((res) => {
         if (res.token) {
           localStorage.setItem("jwt", res.token);
-          setIsLoggedIn(true);
-          setCurrentUser({ email });
-          closeActiveModal();
+          // fetch full user data with _id
+          return checkToken(res.token);
         }
+      })
+      .then((userData) => {
+        setIsLoggedIn(true);
+        setCurrentUser(userData);
+        closeActiveModal();
       })
       .catch((error) => {
         console.error("Login failed:", error);

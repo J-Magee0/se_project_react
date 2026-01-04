@@ -1,5 +1,6 @@
 .sidebar {
   display: flex;
+  flex-direction: column;
   gap: 16px;
   padding: 0;
   min-width: 229px;
@@ -7,13 +8,42 @@
 }
 
 .sidebar__avatar {
+  object-fit: cover;
+  border-radius: 50%;
   width: 56px;
   height: 56px;
 }
 
 .sidebar__name {
+  display: inline;
   font-family: Cabinet Grotesk;
   font-weight: 700;
   font-style: Bold;
   font-size: 20px;
+  position: absolute;
+  margin-left: 16px;
+}
+
+.sidebar__edit-btn {
+  font-family: Cabinet Grotesk;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  background: transparent;
+  border: none;
+  width: fit-content;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.sidebar__logout-btn {
+  font-family: Cabinet Grotesk;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  background: transparent;
+  border: none;
+  width: fit-content;
+  cursor: pointer;
+  white-space: nowrap;
 }

@@ -30,6 +30,21 @@
   padding: 0;
 }
 
+.card__like-btn {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  width: 32px;
+  height: 32px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
 @media (max-width: 726px) {
   .card {
     width: 164px;

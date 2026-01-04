@@ -20,6 +20,7 @@
   color: rgba(0, 0, 0, 0.6);
   border: none;
   background: none;
+  cursor: pointer;
 }
 
 .clothes__section-cards__list {

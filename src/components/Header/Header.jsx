@@ -81,13 +81,6 @@ function Header({ handleAddBtn, weatherData, isLoggedIn, setActiveModal }) {
               )}
             </div>
           </Link>
-          <button
-            onClick={handleLogout}
-            type="button"
-            className="header__logout-btn"
-          >
-            Logout
-          </button>
         </>
       ) : (
         <>

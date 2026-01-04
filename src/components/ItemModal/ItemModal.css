@@ -1,6 +1,18 @@
 .modal {
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #0000004d;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+}
+
+.modal__active {
+  visibility: visible;
 }
 
 .modal__content {
@@ -9,10 +21,16 @@
   padding: 0;
   overflow: hidden;
   box-sizing: border-box;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 8px;
+  position: relative;
 }
 
 .modal__close {
-  position: relative;
+  position: absolute;
   top: 24px;
   right: 24px;
   background: transparent url("../../assets/closeIconGrey.svg") center no-repeat;
@@ -20,12 +38,15 @@
   padding: 0;
   width: 20px;
   height: 20px;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
 }
 
 .modal__image {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-height: 60vh;
+  object-fit: contain;
   padding: 0;
   margin: 0;
   display: block;
@@ -35,6 +56,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 32px;
+  background-color: #fff;
+  flex-shrink: 0;
 }
 
 .modal__footer-left {
