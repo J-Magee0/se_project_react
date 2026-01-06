@@ -25,7 +25,6 @@
   min-height: 28px;
   background-color: black;
   border-radius: 50%;
-  transition: all 0.3s ease-in-out;
   object-fit: cover;
   right: 28px;
   transition: 0.4s ease;

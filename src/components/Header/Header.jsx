@@ -2,9 +2,6 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../../assets/wtwr_logo.svg";
-import avatar from "../../assets/avatar_true.svg";
-import HamburgerIcon from "../../assets/hamburger-icon.svg";
-import CloseIcon from "../../assets/close-icon.svg";
 
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import CurrentUserContext from "../../contexts/CurrentUserContext.jsx";

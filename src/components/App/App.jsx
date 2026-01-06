@@ -9,13 +9,12 @@ import Main from "../Main/Main";
 import ItemModal from "../ItemModal/ItemModal";
 import Footer from "../Footer/Footer";
 
-import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.jsx";
+import currentTemperatureUnitContext from "../../contexts/currentTemperatureUnitContext.jsx";
 import CurrentUserContext from "../../contexts/CurrentUserContext.jsx";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
 
-import { defaultClothingItems } from "../../utils/constants";
 import {
   getItems,
   addItem,
@@ -196,7 +195,7 @@ function App() {
   const handleEditProfile = ({ name, avatar }) => {
     updateUser({ name, avatar })
       .then((res) => {
-        setCurrentUser(res.data || res);
+        setCurrentUser((res) => ({ ...res, name: name, avatar: avatar }));
         closeActiveModal();
       })
       .catch((error) => {
@@ -231,7 +230,7 @@ function App() {
       checkToken(token)
         .then((res) => {
           setIsLoggedIn(true);
-          setCurrentUser(res.data || { email: res.email });
+          setCurrentUser(res);
         })
         .catch((error) => {
           console.error("Token validation failed:", error);
@@ -273,7 +272,7 @@ function App() {
   }, [activeModal]); // watch activeModal here
 
   return (
-    <CurrentTemperatureUnitContext.Provider
+    <currentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
     >
       <CurrentUserContext.Provider value={currentUser}>
@@ -363,7 +362,7 @@ function App() {
           <Footer />
         </div>
       </CurrentUserContext.Provider>
-    </CurrentTemperatureUnitContext.Provider>
+    </currentTemperatureUnitContext.Provider>
   );
 }
 

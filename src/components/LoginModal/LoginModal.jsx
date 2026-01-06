@@ -30,13 +30,10 @@ export default function LoginModal({
   const handleSubmit = (e) => {
     e.preventDefault();
     onLoginModalSubmit({ email, password });
-    closeActiveModal();
   };
 
   const handleSignUpClick = (e) => {
     e.preventDefault();
-    // Close login modal then open register modal
-    closeActiveModal();
     if (typeof setActiveModal === "function") {
       setActiveModal("register");
     }

@@ -1,23 +1,6 @@
+import { request } from "./Api";
+
 const baseUrl = "http://localhost:3001";
-
-export const checkResponse = async (res) => {
-  // attempt to parse JSON body, fall back to null
-  let data = null;
-  try {
-    data = await res.json();
-  } catch (e) {
-    data = null;
-  }
-  if (res.ok) {
-    return data;
-  }
-  // reject with structured error: { status, body }
-  return Promise.reject({ status: res.status, body: data });
-};
-
-export const request = (url, options) => {
-  return fetch(url, options).then(checkResponse);
-};
 
 export function signup({ email, password, name, avatar }) {
   return request(`${baseUrl}/signup`, {

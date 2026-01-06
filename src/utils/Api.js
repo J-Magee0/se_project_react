@@ -1,11 +1,16 @@
 const baseUrl = "http://localhost:3001";
 
-export const checkResponse = (res) => {
-  if (res.ok) {
-    return res.json();
-  } else {
-    return Promise.reject(`Error: ${res.status}`);
+export const checkResponse = async (res) => {
+  let data = null;
+  try {
+    data = await res.json();
+  } catch (e) {
+    data = null;
   }
+  if (res.ok) {
+    return data;
+  }
+  return Promise.reject({ status: res.status, body: data });
 };
 // special function for fetching and checking responses not to duplicate it in every request
 export const request = (url, options) => {
@@ -81,13 +86,13 @@ function signup({ email, password, name, avatar }) {
   });
 }
 
-function signin ({ email, password }) {
+function signin({ email, password }) {
   return request(`${baseUrl}/signin`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
   });
-} 
+}
 
 export {
   getItems,

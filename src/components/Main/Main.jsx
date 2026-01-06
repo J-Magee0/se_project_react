@@ -2,12 +2,12 @@ import { useContext } from "react";
 import "./Main.css";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
-import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import currentTemperatureUnitContext from "../../contexts/currentTemperatureUnitContext";
 
 // Main component to display weather and clothing items
 
 function Main({ weatherData, handleCardClick, clothingItems, onCardLike }) {
-  const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
+  const { currentTemperatureUnit } = useContext(currentTemperatureUnitContext);
   if (!weatherData || !weatherData.temp || !weatherData.type) {
     return <p>Loading...</p>; // or a loading indicator
   }

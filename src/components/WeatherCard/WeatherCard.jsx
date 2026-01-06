@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import "./WeatherCard.css";
 import { weather, defaultWeather } from "../../utils/constants";
-import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import currentTemperatureUnitContext from "../../contexts/currentTemperatureUnitContext";
 
 function WeatherCard({ weatherData }) {
-  const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
+  const { currentTemperatureUnit } = useContext(currentTemperatureUnitContext);
 
   if (
     !weatherData ||

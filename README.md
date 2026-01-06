@@ -12,8 +12,10 @@ Languages used: HTML, CSS, JavaScript, React
 
 ## Links
 
+- [Express_Backend-code](https://github.com/J-Magee0/se_project_express.git)
+
 - [Figma Design](https://www.figma.com/file/DTojSwldenF9UPKQZd6RRb/Sprint-10%3A-WTWR)
 
 ## Deployment
 
-This project is deployed on GitHub Pages:(https://j-magee0.github.io/se_project_react)
+This project is deployed on GitHub Pages:(https://j-magee0.github.io/se_project_react) - Use npm run dev to deploy
