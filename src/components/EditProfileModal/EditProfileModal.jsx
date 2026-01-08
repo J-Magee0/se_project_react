@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
+import { useForm } from "react-hook-form";
 import "./EditProfileModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import CurrentUserContext from "../../contexts/CurrentUserContext.jsx";
@@ -10,27 +11,24 @@ export default function EditProfileModal({
   onEditProfileSubmit,
 }) {
   const currentUser = useContext(CurrentUserContext);
-  const [name, setName] = useState("");
-  const [avatar, setAvatar] = useState("");
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleAvatarChange = (e) => {
-    setAvatar(e.target.value);
-  };
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: {
+      name: "",
+      avatar: "",
+    },
+  });
 
   useEffect(() => {
     if (isOpen && currentUser) {
-      setName(currentUser.name || "");
-      setAvatar(currentUser.avatar || "");
+      reset({
+        name: currentUser.name || "",
+        avatar: currentUser.avatar || "",
+      });
     }
-  }, [isOpen, currentUser]);
+  }, [isOpen, currentUser, reset]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onEditProfileSubmit({ name, avatar });
+  const onSubmit = (data) => {
+    onEditProfileSubmit(data);
   };
 
   return (
@@ -41,7 +39,7 @@ export default function EditProfileModal({
       activeModal={activeModal}
       closeActiveModal={closeActiveModal}
       isOpen={isOpen}
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <label htmlFor="profile-name" className="modal__label">
         Name{" "}
@@ -51,10 +49,11 @@ export default function EditProfileModal({
           id="profile-name"
           placeholder="Name"
           required
-          value={name}
-          onChange={handleNameChange}
-          minLength={1}
-          maxLength={50}
+          {...register("name", {
+            required: true,
+            minLength: 1,
+            maxLength: 50,
+          })}
         />
       </label>
       <label htmlFor="profile-avatar" className="modal__label">
@@ -64,10 +63,10 @@ export default function EditProfileModal({
           className="modal__input"
           id="profile-avatar"
           placeholder="Avatar URL"
-          value={avatar}
-          onChange={handleAvatarChange}
-          minLength={1}
-          maxLength={200}
+          {...register("avatar", {
+            minLength: 1,
+            maxLength: 200,
+          })}
         />
       </label>
     </ModalWithForm>

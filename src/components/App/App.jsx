@@ -313,6 +313,7 @@ function App() {
                       clothingItems={clothingItems}
                       onEditProfile={() => setActiveModal("edit-profile")}
                       onSignOut={handleSignOut}
+                      onCardLike={handleCardLike}
                     />
                   </ProtectedRoute>
                 }

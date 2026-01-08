@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import "./LoginModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
@@ -9,27 +10,21 @@ export default function LoginModal({
   onLoginModalSubmit,
   setActiveModal,
 }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   useEffect(() => {
     if (isOpen) {
-      setEmail("");
-      setPassword("");
+      reset();
     }
-  }, [isOpen]);
+  }, [isOpen, reset]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onLoginModalSubmit({ email, password });
+  const onSubmit = (data) => {
+    onLoginModalSubmit(data);
   };
 
   const handleSignUpClick = (e) => {
@@ -47,7 +42,7 @@ export default function LoginModal({
       activeModal={activeModal}
       closeActiveModal={closeActiveModal}
       isOpen={isOpen}
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <label htmlFor="login-email" className="modal__label">
         Email{" "}
@@ -57,10 +52,11 @@ export default function LoginModal({
           id="login-email"
           placeholder="Email"
           required
-          value={email}
-          onChange={handleEmailChange}
-          minLength={1}
-          maxLength={100}
+          {...register("email", {
+            required: true,
+            minLength: 1,
+            maxLength: 100,
+          })}
         />
       </label>
       <label htmlFor="login-password" className="modal__label">
@@ -71,10 +67,11 @@ export default function LoginModal({
           id="login-password"
           placeholder="Password"
           required
-          value={password}
-          onChange={handlePasswordChange}
-          minLength={1}
-          maxLength={100}
+          {...register("password", {
+            required: true,
+            minLength: 1,
+            maxLength: 100,
+          })}
         />
       </label>
       <button

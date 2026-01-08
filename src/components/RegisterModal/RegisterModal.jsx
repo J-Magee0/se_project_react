@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import "./RegisterModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
@@ -9,39 +10,23 @@ export default function RegisterModal({
   onRegisterModalSubmit,
   setActiveModal,
 }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState("");
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleAvatarUrlChange = (e) => {
-    setAvatarUrl(e.target.value);
-  };
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+      name: "",
+      avatarUrl: "",
+    },
+  });
 
   useEffect(() => {
     if (isOpen) {
-      setEmail("");
-      setPassword("");
-      setName("");
-      setAvatarUrl("");
+      reset();
     }
-  }, [isOpen]);
+  }, [isOpen, reset]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onRegisterModalSubmit({ email, password, name, avatarUrl });
+  const onSubmit = (data) => {
+    onRegisterModalSubmit(data);
   };
 
   const handleLoginClick = (e) => {
@@ -61,7 +46,7 @@ export default function RegisterModal({
       activeModal={activeModal}
       closeActiveModal={closeActiveModal}
       isOpen={isOpen}
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <label htmlFor="register-email" className="modal__label">
         Email *{" "}
@@ -71,10 +56,11 @@ export default function RegisterModal({
           id="register-email"
           placeholder="Email"
           required
-          value={email}
-          onChange={handleEmailChange}
-          minLength={1}
-          maxLength={100}
+          {...register("email", {
+            required: true,
+            minLength: 1,
+            maxLength: 100,
+          })}
         />
       </label>
       <label htmlFor="register-password" className="modal__label">
@@ -85,10 +71,11 @@ export default function RegisterModal({
           id="register-password"
           placeholder="Password"
           required
-          value={password}
-          onChange={handlePasswordChange}
-          minLength={1}
-          maxLength={100}
+          {...register("password", {
+            required: true,
+            minLength: 1,
+            maxLength: 100,
+          })}
         />
       </label>
       <label htmlFor="register-name" className="modal__label">
@@ -99,10 +86,11 @@ export default function RegisterModal({
           id="register-name"
           placeholder="Name"
           required
-          value={name}
-          onChange={handleNameChange}
-          minLength={1}
-          maxLength={50}
+          {...register("name", {
+            required: true,
+            minLength: 1,
+            maxLength: 50,
+          })}
         />
       </label>
       <label htmlFor="register-avatar-url" className="modal__label">
@@ -113,10 +101,11 @@ export default function RegisterModal({
           id="register-avatar-url"
           placeholder="Avatar URL"
           required
-          value={avatarUrl}
-          onChange={handleAvatarUrlChange}
-          minLength={1}
-          maxLength={200}
+          {...register("avatarUrl", {
+            required: true,
+            minLength: 1,
+            maxLength: 200,
+          })}
         />
       </label>
       <button
